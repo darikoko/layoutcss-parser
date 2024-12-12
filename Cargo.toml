@@ -1,0 +1,18 @@
+[package]
+name = "layoutrs"
+version = "0.1.0"
+edition = "2021"
+authors = ["Loïc Cavinato loic@cavinato.fr"]
+description = "Process a text to generate corresponding CSS according the layoutcss framework."
+
+[dependencies]
+serde = { version = "1.0.215", features = ["derive"] }
+toml = "0.8.19"
+indoc = "2"
+
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = "fat"
+panic = "abort"
