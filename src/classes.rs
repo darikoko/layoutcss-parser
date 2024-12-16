@@ -163,7 +163,6 @@ impl<'a> TryFrom<&'a str> for LayoutClass<'a> {
                 "pr-child" => Ok(LayoutClass::PRChild(value)),
                 "px-child" => Ok(LayoutClass::PXChild(value)),
                 "py-child" => Ok(LayoutClass::PYChild(value)),
-
                 "p-recursive" => Ok(LayoutClass::PRecursive(value)),
                 "pt-recursive" => Ok(LayoutClass::PTRecursive(value)),
                 "pb-recursive" => Ok(LayoutClass::PBRecursive(value)),
@@ -172,9 +171,7 @@ impl<'a> TryFrom<&'a str> for LayoutClass<'a> {
                 "px-recursive" => Ok(LayoutClass::PXRecursive(value)),
                 "py-recursive" => Ok(LayoutClass::PYRecursive(value)),
 
-
                 "justify" => Ok(LayoutClass::Justify(value)),
-
 
                 "ratio" => Ok(LayoutClass::Ratio(value)),
                 "w" => Ok(LayoutClass::W(value)),
@@ -231,12 +228,14 @@ impl<'a> LayoutClass<'a> {
             Self::PR(value) => pr_css(value, harmonic_ratio, set),
             Self::PX(value) => px_css(value, harmonic_ratio, set),
             Self::PY(value) => py_css(value, harmonic_ratio, set),
+            Self::PChild(value) => p_child_css(value, harmonic_ratio, set),
             Self::PTChild(value) => pt_child_css(value, harmonic_ratio, set),
             Self::PBChild(value) => pb_child_css(value, harmonic_ratio, set),
             Self::PLChild(value) => pl_child_css(value, harmonic_ratio, set),
             Self::PRChild(value) => pr_child_css(value, harmonic_ratio, set),
             Self::PXChild(value) => px_child_css(value, harmonic_ratio, set),
             Self::PYChild(value) => py_child_css(value, harmonic_ratio, set),
+            Self::PRecursive(value) => p_recursive_css(value, harmonic_ratio, set),
             Self::PTRecursive(value) => pt_recursive_css(value, harmonic_ratio, set),
             Self::PBRecursive(value) => pb_recursive_css(value, harmonic_ratio, set),
             Self::PLRecursive(value) => pl_recursive_css(value, harmonic_ratio, set),
