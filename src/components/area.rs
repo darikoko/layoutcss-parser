@@ -165,7 +165,7 @@ pub fn area_css(
         let template_areas = grid_template_areas_value(template);
         set.insert(area_grid_template_areas_style(template, template_areas));
         for (index,letter) in unique_letters(template).into_iter().enumerate() {
-            set.insert(area_grid_area_unit_style(template, letter,index));
+            set.insert(area_grid_area_unit_style(template, letter,index+1));
         }
 
         let (rows_nb, cols_nb) = count_rows_and_cols(template);
