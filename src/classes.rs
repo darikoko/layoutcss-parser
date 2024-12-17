@@ -138,6 +138,7 @@ impl<'a> TryFrom<&'a str> for LayoutClass<'a> {
                 "side-width" => Ok(LayoutClass::SideWidth(value)),
                 "content-min" => Ok(LayoutClass::ContentMin(value)),
                 "threshold" => Ok(LayoutClass::Threshold(value)),
+                "template" => Ok(LayoutClass::Template(value)),
                 "limit" => Ok(LayoutClass::Limit(value)),
 
                 "align-self" => Ok(LayoutClass::AlignSelf(value)),
