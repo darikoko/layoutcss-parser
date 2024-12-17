@@ -54,8 +54,9 @@ pub enum LayoutClass<'a> {
     KeepPR,
     KeepCenter,
     Shrink,
-    Cols(&'a str),
-    Rows(&'a str),
+    Template(&'a str),
+    Col(&'a str),
+    Row(&'a str),
 
     // Utility Classes
     AlignSelf(&'a str),
@@ -177,8 +178,10 @@ impl<'a> TryFrom<&'a str> for LayoutClass<'a> {
                 "w" => Ok(LayoutClass::W(value)),
                 "z-index" => Ok(LayoutClass::ZIndex(value)),
 
-                c if c.starts_with("rows-") => Ok(LayoutClass::Rows(input)),
-                c if c.starts_with("cols-") => Ok(LayoutClass::Cols(input)),
+                //TODO check if its not row instead of rows
+                //if its the case rename Rows Row (same thing for Cols to Col)
+                c if c.starts_with("row-") => Ok(LayoutClass::Row(input)),
+                c if c.starts_with("col-") => Ok(LayoutClass::Col(input)),
 
                 _ => Err(()),
             },
@@ -257,10 +260,10 @@ mod tests {
 
     #[test]
     fn create_layout_class_for_rows_area() {
-        let layout_class = "cols-3:440px";
+        let layout_class = "col-3:440px";
         let cols_variant = LayoutClass::try_from(layout_class);
         //assert_eq!(cols_variant, LayoutClass::Cols("cols-"));
-        assert_eq!(cols_variant, Ok(LayoutClass::Cols("cols-3:440px")));
+        assert_eq!(cols_variant, Ok(LayoutClass::Col("col-3:440px")));
     }
 
     #[test]

@@ -122,8 +122,27 @@ pub fn generate<'a>(
                                 _ => {}
                             };
                         }
+                        LayoutClass::Template(v) => {
+                            match comp {
+                                Component::Area { template, .. } => *template = Some(v),
+                                _ => {}
+                            };
+                        }
+                        LayoutClass::Rows(v) => {
+                            match comp {
+                                Component::Area { rows, .. } => rows.push(v),
+                                _ => {}
+                            };
+                        }
+                        LayoutClass::Cols(v) => {
+                            match comp {
+                                Component::Area { cols, .. } => cols.push(v),
+                                _ => {}
+                            };
+                        }
                         LayoutClass::Gap(v) => {
                             match comp {
+                                Component::Area { gap, .. } => *gap = Some(v),
                                 Component::Grid { gap, .. } => *gap = Some(v),
                                 Component::Icon { gap, .. } => *gap = Some(v),
                                 Component::Ledge { gap, .. } => *gap = Some(v),
@@ -137,6 +156,7 @@ pub fn generate<'a>(
                         }
                         LayoutClass::GapX(v) => {
                             match comp {
+                                Component::Area { gap_x, .. } => *gap_x = Some(v),
                                 Component::Grid { gap_x, .. } => *gap_x = Some(v),
                                 Component::Ledge { gap_x, .. } => *gap_x = Some(v),
                                 Component::Sidebar { gap_x, .. } => *gap_x = Some(v),
@@ -146,6 +166,7 @@ pub fn generate<'a>(
                         }
                         LayoutClass::GapY(v) => {
                             match comp {
+                                Component::Area { gap_y, .. } => *gap_y = Some(v),
                                 Component::Grid { gap_y, .. } => *gap_y = Some(v),
                                 Component::Ledge { gap_y, .. } => *gap_y = Some(v),
                                 Component::Sidebar { gap_y, .. } => *gap_y = Some(v),
