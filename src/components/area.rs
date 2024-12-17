@@ -48,10 +48,10 @@ fn area_grid_template_areas_style(value: &str, template: String) -> String {
     )
 }
 
-fn area_grid_area_unit_style(value: &str, unit: char) -> String {
+fn area_grid_area_unit_style(value: &str, unit: char, index:usize) -> String {
     formatdoc!(
         r#"
-        area-l[layout~="template:{value}"] > :nth-child({unit}) {{
+        area-l[layout~="template:{value}"] > :nth-child({index}) {{
             grid-area: {unit};
         }}
         "#,
@@ -164,8 +164,8 @@ pub fn area_css(
     if let Some(template) = template {
         let template_areas = grid_template_areas_value(template);
         set.insert(area_grid_template_areas_style(template, template_areas));
-        for letter in unique_letters(template) {
-            set.insert(area_grid_area_unit_style(template, letter));
+        for (index,letter) in unique_letters(template).into_iter().enumerate() {
+            set.insert(area_grid_area_unit_style(template, letter,index));
         }
 
         let (rows_nb, cols_nb) = count_rows_and_cols(template);
