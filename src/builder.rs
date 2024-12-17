@@ -128,13 +128,13 @@ pub fn generate<'a>(
                                 _ => {}
                             };
                         }
-                        LayoutClass::Rows(v) => {
+                        LayoutClass::Row(v) => {
                             match comp {
                                 Component::Area { rows, .. } => rows.push(v),
                                 _ => {}
                             };
                         }
-                        LayoutClass::Cols(v) => {
+                        LayoutClass::Col(v) => {
                             match comp {
                                 Component::Area { cols, .. } => cols.push(v),
                                 _ => {}
