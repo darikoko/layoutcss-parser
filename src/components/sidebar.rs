@@ -69,7 +69,7 @@ fn sidebar_group_style(
 ) -> String {
     formatdoc!(
         r#"
-        sidebar-l{side_selector}{side_width_selector}{content_min_selector} > {selector_one}:not(outsider-l) {{
+        sidebar-l{side_selector}{side_width_selector}{content_min_selector} > {selector_one}:not(outsider-l:not([layout~="disinherit"])) {{
               flex-basis: {side_width};
               flex-grow: 1;
               min-inline-size: initial;
@@ -77,7 +77,7 @@ fn sidebar_group_style(
               min-height:0;
         }}
 
-        sidebar-l{side_selector}{side_width_selector}{content_min_selector} > {selector_two}:not(outsider-l) {{
+        sidebar-l{side_selector}{side_width_selector}{content_min_selector} > {selector_two}:not(outsider-l:not([layout~="disinherit"])) {{
                 flex-basis: 0;
                 flex-grow: 999;
                 min-inline-size: {content_min};

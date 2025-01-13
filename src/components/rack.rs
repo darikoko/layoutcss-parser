@@ -12,11 +12,11 @@ const RACK_STYLE: &str = r#"
       margin-block: auto;
   }
 
-  rack-l > :first-child:not([layout~="centered"]):not(outsider-l) {
+  rack-l > :first-child:not([layout~="centered"]):not(outsider-l:not([layout~="disinherit"])) {
       margin-block-start: 0;
   }
 
-  rack-l > :last-child:not([layout~="centered"]):not(outsider-l) {
+  rack-l > :last-child:not([layout~="centered"]):not(outsider-l:not([layout~="disinherit"])) {
       margin-block-end: 0;
   }
 "#;

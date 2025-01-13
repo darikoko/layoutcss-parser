@@ -8,7 +8,7 @@ const SWITCHER_STYLE: &str = r#"
     flex-wrap: wrap;
   }
 
-  switcher-l > *:not(outsider-l){
+  switcher-l > *:not(outsider-l:not([layout~="disinherit"])){
       flex-grow: 1;
   }
 "#;
@@ -22,7 +22,7 @@ const SWITCHER_REVERSE_STYLE: &str = r#"
 fn switcher_threshold_style(value: &str) -> String {
     formatdoc!(
         r#"
-        switcher-l[layout~="threshold:{value}"] > *:not(outsider-l) {{
+        switcher-l[layout~="threshold:{value}"] > *:not(outsider-l:not([layout~="disinherit"])) {{
             flex-basis: calc(({value} - 100%) * 999);
         }}
         "#,
@@ -32,8 +32,8 @@ fn switcher_threshold_style(value: &str) -> String {
 fn switcher_limit_style(value: &str) -> String {
     formatdoc!(
         r#"
-        switcher-l[layout~="limit:{value}"] > :nth-last-child(n+{value}):not(outsider-l),
-        switcher-l[layout~="limit:{value}"] > :nth-last-child(n+{value}) ~ *:not(outsider-l){{
+        switcher-l[layout~="limit:{value}"] > :nth-last-child(n+{value}):not(outsider-l:not([layout~="disinherit"])),
+        switcher-l[layout~="limit:{value}"] > :nth-last-child(n+{value}) ~ *:not(outsider-l:not([layout~="disinherit"])){{
             flex-basis: 100%;
         }}
         "#,

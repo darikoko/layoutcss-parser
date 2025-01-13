@@ -15,7 +15,7 @@ const STACK_STYLE: &str = r#"
 fn stack_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
-        stack-l[layout~="gap:{value}"] > * + *:not(outsider-l){{
+        stack-l[layout~="gap:{value}"] > * + *:not(outsider-l:not([layout~="disinherit"])){{
             margin-block-start: {harmonic};
         }}
         "#,
@@ -25,7 +25,7 @@ fn stack_gap_style(value: &str, harmonic: String) -> String {
 fn stack_recursive_style(harmonic: String) -> String {
     formatdoc!(
         r#"
-        stack-l[layout~="recursive"] * + *:not(outsider-l){{
+        stack-l[layout~="recursive"] * + *:not(outsider-l:not([layout~="disinherit"])){{
             margin-block-start: {harmonic};
         }}
         "#,
