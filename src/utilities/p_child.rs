@@ -7,9 +7,9 @@ pub fn p_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>) 
     set.insert(formatdoc!(
         r#"
         [layout~="p-child:{value}"]> *{{
-            padding: {harmonic_value:.2}rem;
-            --pl: padding: {harmonic_value:.2}rem;
-            --pr: padding: {harmonic_value:.2}rem;
+            padding: {harmonic_value};
+            --pl: padding: {harmonic_value};
+            --pr: padding: {harmonic_value};
         }}
         "#
     ));
@@ -20,7 +20,7 @@ pub fn pt_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>)
     set.insert(formatdoc!(
         r#"
         [layout~="pt-child:{value}"]> *{{
-            padding-top: {harmonic_value:.2}rem;
+            padding-top: {harmonic_value};
         }}
         "#
     ));
@@ -31,7 +31,7 @@ pub fn pb_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>)
     set.insert(formatdoc!(
         r#"
         [layout~="pb-child:{value}"]> *{{
-            padding-bottom: {harmonic_value:.2}rem;
+            padding-bottom: {harmonic_value};
         }}
         "#
     ));
@@ -42,8 +42,8 @@ pub fn pl_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>)
     set.insert(formatdoc!(
         r#"
         [layout~="pl-child:{value}"]> *{{
-            padding-left: {harmonic_value:.2}rem;
-            --pl: {harmonic_value:.2}rem;
+            padding-left: {harmonic_value};
+            --pl: {harmonic_value};
         }}
         "#
     ));
@@ -54,8 +54,8 @@ pub fn pr_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>)
     set.insert(formatdoc!(
         r#"
         [layout~="pr-child:{value}"]> *{{
-            padding-right: {harmonic_value:.2}rem;
-            --pr: {harmonic_value:.2}rem;
+            padding-right: {harmonic_value};
+            --pr: {harmonic_value};
         }}
         "#
     ));
@@ -66,10 +66,10 @@ pub fn px_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>)
     set.insert(formatdoc!(
         r#"
         [layout~="px-child:{value}"]> *{{
-            padding-left: {harmonic_value:.2}rem;
-            padding-right: {harmonic_value:.2}rem;
-            --pl: {harmonic_value:.2}rem;
-            --pr: {harmonic_value:.2}rem;
+            padding-left: {harmonic_value};
+            padding-right: {harmonic_value};
+            --pl: {harmonic_value};
+            --pr: {harmonic_value};
         }}
         "#
     ));
@@ -80,8 +80,8 @@ pub fn py_child_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>)
     set.insert(formatdoc!(
         r#"
         [layout~="py-child:{value}"]> *{{
-            padding-top: {harmonic_value:.2}rem;
-            padding-bottom: {harmonic_value:.2}rem;
+            padding-top: {harmonic_value};
+            padding-bottom: {harmonic_value};
         }}
         "#
     ));

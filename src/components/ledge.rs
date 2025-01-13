@@ -54,31 +54,31 @@ fn ledge_align_style(value: &str) -> String {
         "#,
     )
 }
-fn ledge_gap_style(value: &str, harmonic: f64) -> String {
+fn ledge_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         ledge-l[layout~="gap:{value}"]{{
-            gap: {harmonic:.2}rem;
+            gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn ledge_gap_x_style(value: &str, harmonic: f64) -> String {
+fn ledge_gap_x_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         ledge-l[layout~="gap-x:{value}"]{{
-            column-gap: {harmonic:.2}rem;
+            column-gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn ledge_gap_y_style(value: &str, harmonic: f64) -> String {
+fn ledge_gap_y_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         ledge-l[layout~="gap-y:{value}"]{{
-            row-gap: {harmonic:.2}rem;
+            row-gap: {harmonic};
         }}
         "#,
     )

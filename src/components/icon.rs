@@ -16,11 +16,11 @@ icon-l > :nth-child(1) {
 }
 "#;
 
-fn icon_scale_style(value: &str, harmonic: f64) -> String {
+fn icon_scale_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         icon-l[layout*="scale:{value}"] >:nth-child(1){{
-            height: {harmonic:.2}rem;
+            height: {harmonic};
         }}
         "#,
     )
@@ -41,12 +41,12 @@ fn icon_group_style(
     gap_dir_selector: &str,
     gap_dir: &str,
     opposite_dir: &str,
-    harmonic: f64,
+    harmonic: String,
 ) -> String {
     formatdoc!(
         r#"
         icon-l{gap_dir_selector}[layout*="gap:{value}"] >:nth-child(1){{
-            margin-inline-{gap_dir}: {harmonic:.2}rem;
+            margin-inline-{gap_dir}: {harmonic};
             margin-inline-{opposite_dir}: initial;
         }}
         "#,

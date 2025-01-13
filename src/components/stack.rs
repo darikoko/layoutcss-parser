@@ -12,21 +12,21 @@ const STACK_STYLE: &str = r#"
   }
 "#;
 
-fn stack_gap_style(value: &str, harmonic: f64) -> String {
+fn stack_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         stack-l[layout~="gap:{value}"] > * + *:not(outsider-l){{
-            margin-block-start: {harmonic:.2}rem;
+            margin-block-start: {harmonic};
         }}
         "#,
     )
 }
 
-fn stack_recursive_style(harmonic: f64) -> String {
+fn stack_recursive_style(harmonic: String) -> String {
     formatdoc!(
         r#"
         stack-l[layout~="recursive"] * + *:not(outsider-l){{
-            margin-block-start: {harmonic:.2}rem;
+            margin-block-start: {harmonic};
         }}
         "#,
     )
@@ -41,7 +41,7 @@ pub fn stack_css(
     set.insert(STACK_STYLE.to_string());
     if let Some(value) = gap {
         let harmonic_value = get_harmonic(value, harmonic_ratio);
-        set.insert(stack_gap_style(value, harmonic_value));
+        set.insert(stack_gap_style(value, harmonic_value.clone()));
         if recursive {
             set.insert(stack_recursive_style(harmonic_value));
         }

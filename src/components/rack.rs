@@ -26,7 +26,7 @@ fn rack_height_style(value: &str) -> String {
         r#"
         rack-l[layout~="height:{value}"]{{
             height: {value};
-            overflow-y: scroll;
+            overflow-y: auto;
         }}
         "#,
     )
@@ -52,11 +52,11 @@ fn rack_max_height_style(value: &str) -> String {
     )
 }
 
-fn rack_gap_style(value: &str, harmonic: f64) -> String {
+fn rack_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         rack-l[layout~="gap:{value}"]{{
-            gap: {harmonic:.2}rem;
+            gap: {harmonic};
         }}
         "#,
     )
@@ -72,13 +72,13 @@ pub fn rack_css(
 ) {
     set.insert(RACK_STYLE.to_string());
     if let Some(value) = height {
-        set.insert(rack_height_style(value));
+        set.insert(rack_height_style(&get_harmonic(value, harmonic_ratio)));
     }
     if let Some(value) = min_height {
-        set.insert(rack_min_height_style(value));
+        set.insert(rack_min_height_style(&get_harmonic(value, harmonic_ratio)));
     }
     if let Some(value) = max_height {
-        set.insert(rack_max_height_style(value));
+        set.insert(rack_max_height_style(&get_harmonic(value, harmonic_ratio)));
     }
     if let Some(value) = gap {
         let harmonic_value = get_harmonic(&value, harmonic_ratio);

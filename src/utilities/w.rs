@@ -7,7 +7,7 @@ pub fn w_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>) {
     set.insert(formatdoc!(
         r#"
         [layout~="w:{value}"]{{
-            width: {harmonic_value:.2}rem;
+            width: {harmonic_value};
         }}
         "#
     ));

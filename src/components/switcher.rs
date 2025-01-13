@@ -1,5 +1,5 @@
-use indoc::formatdoc;
 use crate::harmonic::get_harmonic;
+use indoc::formatdoc;
 
 use std::collections::HashSet;
 const SWITCHER_STYLE: &str = r#"
@@ -40,31 +40,31 @@ fn switcher_limit_style(value: &str) -> String {
     )
 }
 
-fn switcher_gap_style(value: &str, harmonic: f64) -> String {
+fn switcher_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         switcher-l[layout~="gap:{value}"]{{
-            gap: {harmonic:.2}rem;
+            gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn switcher_gap_x_style(value: &str, harmonic: f64) -> String {
+fn switcher_gap_x_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         switcher-l[layout~="gap-x:{value}"]{{
-            column-gap: {harmonic:.2}rem;
+            column-gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn switcher_gap_y_style(value: &str, harmonic: f64) -> String {
+fn switcher_gap_y_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         switcher-l[layout~="gap-y:{value}"]{{
-            row-gap: {harmonic:.2}rem;
+            row-gap: {harmonic};
         }}
         "#,
     )

@@ -1,5 +1,7 @@
 use indoc::formatdoc;
 use std::collections::HashSet;
+use crate::harmonic::get_harmonic;
+
 const OUTSIDER_STYLE: &str = r#"
   outsider-l{
     display:block;
@@ -62,6 +64,7 @@ pub fn outsider_css(
     bottom: Option<&str>,
     left: Option<&str>,
     right: Option<&str>,
+    harmonic_ratio: f64,
     set: &mut HashSet<String>,
 ) {
     set.insert(OUTSIDER_STYLE.to_string());
@@ -69,15 +72,15 @@ pub fn outsider_css(
         set.insert(outsider_position_style(value));
     }
     if let Some(value) = top {
-        set.insert(outsider_top_style(value));
+        set.insert(outsider_top_style(&get_harmonic(value, harmonic_ratio)));
     }
     if let Some(value) = bottom {
-        set.insert(outsider_bottom_style(value));
+        set.insert(outsider_bottom_style(&get_harmonic(value, harmonic_ratio)));
     }
     if let Some(value) = left {
-        set.insert(outsider_left_style(value));
+        set.insert(outsider_left_style(&get_harmonic(value, harmonic_ratio)));
     }
     if let Some(value) = right {
-        set.insert(outsider_right_style(value));
+        set.insert(outsider_right_style(&get_harmonic(value, harmonic_ratio)));
     }
 }

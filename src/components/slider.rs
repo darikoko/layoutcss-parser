@@ -47,11 +47,11 @@ fn slider_height_style(value: &str) -> String {
     )
 }
 
-fn slider_gap_style(value: &str, harmonic: f64) -> String {
+fn slider_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         slider-l[layout~="gap:{value}"] {{
-            gap: {harmonic:.2}rem;
+            gap: {harmonic};
         }}
         "#,
     )

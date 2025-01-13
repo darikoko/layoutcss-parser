@@ -26,31 +26,31 @@ fn sidebar_shrink_style(reverse: bool) -> String {
     )
 }
 
-fn sidebar_gap_style(value: &str, harmonic: f64) -> String {
+fn sidebar_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         sidebar-l[layout~="gap:{value}"]{{
-            gap: {harmonic:.2}rem;
+            gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn sidebar_gap_x_style(value: &str, harmonic: f64) -> String {
+fn sidebar_gap_x_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         sidebar-l[layout~="gap-x:{value}"]{{
-            column-gap: {harmonic:.2}rem;
+            column-gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn sidebar_gap_y_style(value: &str, harmonic: f64) -> String {
+fn sidebar_gap_y_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         sidebar-l[layout~="gap-y:{value}"]{{
-            row-gap: {harmonic:.2}rem;
+            row-gap: {harmonic};
         }}
         "#,
     )

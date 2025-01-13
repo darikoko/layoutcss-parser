@@ -298,7 +298,7 @@ impl<'a> Component<'a> {
                 bottom,
                 left,
                 right,
-            } => outsider_css(position, top, bottom, left, right, set),
+            } => outsider_css(position, top, bottom, left, right, harmonic_ratio, set),
             Component::Rack {
                 height,
                 min_height,

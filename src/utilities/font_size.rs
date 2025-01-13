@@ -7,7 +7,7 @@ pub fn font_size_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>
     set.insert(formatdoc!(
         r#"
         [layout~="font-size:{value}"]{{
-            font-size: {harmonic_value:.2}rem;
+            font-size: {harmonic_value};
         }}
         "#
     ));

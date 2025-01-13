@@ -7,7 +7,7 @@ pub fn h_css(value: &str, harmonic_ratio: f64, set: &mut HashSet<String>) {
     set.insert(formatdoc!(
         r#"
         [layout~="h:{value}"]{{
-            height: {harmonic_value:.2}rem;
+            height: {harmonic_value};
         }}
         "#
     ));

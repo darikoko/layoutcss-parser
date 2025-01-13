@@ -9,31 +9,31 @@ const GRID_STYLE: &str = r#"
   }
 "#;
 
-fn grid_gap_style(value: &str, harmonic: f64) -> String {
+fn grid_gap_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         grid-l[layout~="gap:{value}"]{{
-            gap: {harmonic:.2}rem;
+            gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn grid_gap_x_style(value: &str, harmonic: f64) -> String {
+fn grid_gap_x_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         grid-l[layout~="gap-x:{value}"]{{
-            column-gap: {harmonic:.2}rem;
+            column-gap: {harmonic};
         }}
         "#,
     )
 }
 
-fn grid_gap_y_style(value: &str, harmonic: f64) -> String {
+fn grid_gap_y_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         grid-l[layout~="gap-y:{value}"]{{
-            row-gap: {harmonic:.2}rem;
+            row-gap: {harmonic};
         }}
         "#,
     )
@@ -49,21 +49,21 @@ fn grid_group_empty(min_cell_width: &str) -> String {
     )
 }
 
-fn grid_group_max_cols(min_cell_width: &str, max_cols: &str, gap_delta_max: f64) -> String {
+fn grid_group_max_cols(min_cell_width: &str, max_cols: &str, gap_delta_max: &str) -> String {
     formatdoc!(
         r#"
         grid-l[layout*="min-cell-width:{min_cell_width}"][layout*="max-cols:{max_cols}"]{{
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, max({min_cell_width}, (100% / {max_cols} - {gap_delta_max}rem))),1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, max({min_cell_width}, (100% / {max_cols} - {gap_delta_max}))),1fr));
         }}
         "#,
     )
 }
 
-fn grid_group_min_cols(min_cell_width: &str, min_cols: &str, gap_delta_min: f64) -> String {
+fn grid_group_min_cols(min_cell_width: &str, min_cols: &str, gap_delta_min: &str) -> String {
     formatdoc!(
         r#"
         grid-l[layout*="min-cell-width:{min_cell_width}"][layout*="min-cols:{min_cols}"]:has(:nth-child({min_cols})){{
-            grid-template-columns: repeat(auto-fit, minmax(min((100% / {min_cols} - {gap_delta_min}rem), {min_cell_width}), 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min((100% / {min_cols} - {gap_delta_min}), {min_cell_width}), 1fr));
         }}
         grid-l[layout*="min-cell-width:{min_cell_width}"][layout*="min-cols:{min_cols}"]{{
             grid-template-columns: repeat({min_cols}, 1fr);
@@ -76,8 +76,8 @@ fn grid_group_min_cols_max_cols(
     min_cell_width: &str,
     min_cols: &str,
     max_cols: &str,
-    gap_delta_min: f64,
-    gap_delta_max: f64,
+    gap_delta_min: &str,
+    gap_delta_max: &str,
     fr: f64,
 ) -> String {
     formatdoc!(
@@ -87,8 +87,8 @@ fn grid_group_min_cols_max_cols(
                 repeat(auto-fit,
                     minmax(
                         min(
-                            (100% / {min_cols} - {gap_delta_min}rem),
-                                max({min_cell_width}, (100% / {max_cols} - {gap_delta_max}rem))
+                            (100% / {min_cols} - {gap_delta_min}),
+                                max({min_cell_width}, (100% / {max_cols} - {gap_delta_max}))
                             ),
                             {fr}fr
                             )
@@ -101,14 +101,18 @@ fn grid_group_min_cols_max_cols(
     )
 }
 
-fn gap_delta(cols: &str, gap: Option<&str>, harmonic_ratio: f64) -> f64 {
+fn gap_delta(cols: &str, gap: Option<&str>, harmonic_ratio: f64) -> String {
     if let Some(value) = gap {
         match cols.parse::<f64>() {
-            Ok(val) => get_harmonic(&value, harmonic_ratio) * (val - 0.98) / val,
-            Err(_) => 0.0,
+            Ok(cols_number) => {
+                let hr =  get_harmonic(&value, harmonic_ratio);
+                format!("{hr} * ({cols_number} - 0.98) / {cols_number}").to_string()
+                //get_harmonic(&value, harmonic_ratio) * (val - 0.98) / val,
+            },
+            Err(_) => "0px".to_string(),
         }
     } else {
-        0.0
+        "0px".to_string()
     }
 }
 
@@ -138,6 +142,7 @@ pub fn grid_css(
     if let Some(min_cell_width) = min_cell_width {
         match (min_cols, max_cols) {
             (Some(min_cols), Some(max_cols)) => {
+
                 let gap_delta_min = gap_delta(min_cols, gap, harmonic_ratio);
                 let gap_delta_max = gap_delta(max_cols, gap, harmonic_ratio);
                 let fr = 1.0 / min_cols.parse::<f64>().unwrap_or(-1.0);
@@ -145,18 +150,18 @@ pub fn grid_css(
                     min_cell_width,
                     min_cols,
                     max_cols,
-                    gap_delta_min,
-                    gap_delta_max,
+                    &gap_delta_min,
+                    &gap_delta_max,
                     fr,
                 ));
             }
             (Some(min_cols), None) => {
                 let gap_delta_min = gap_delta(min_cols, gap, harmonic_ratio);
-                set.insert(grid_group_min_cols(min_cell_width, min_cols, gap_delta_min));
+                set.insert(grid_group_min_cols(min_cell_width, min_cols, &gap_delta_min));
             }
             (None, Some(max_cols)) => {
                 let gap_delta_max = gap_delta(max_cols, gap, harmonic_ratio);
-                set.insert(grid_group_max_cols(min_cell_width, max_cols, gap_delta_max));
+                set.insert(grid_group_max_cols(min_cell_width, max_cols, &gap_delta_max));
             }
             _ => {
                 set.insert(grid_group_empty(min_cell_width));
@@ -164,3 +169,5 @@ pub fn grid_css(
         }
     }
 }
+
+
