@@ -9,7 +9,7 @@ const SLIDER_STYLE: &str = r#"
     overflow-y: hidden;
   }
 
-  slider-l > *:not(outsider-l:not([layout~="disinherit"])) {
+  slider-l > *:not(outsider-l[layout~="disinherit"]) {
       flex-shrink: 0;
       flex-grow: 0;
       height: auto;
@@ -30,7 +30,7 @@ const SLIDER_HIDE_BAR_STYLE: &str = r#"
 fn slider_item_width_style(value: &str) -> String {
     formatdoc!(
         r#"
-        slider-l[layout~="item-width:{value}"] > *:not(outsider-l:not([layout~="disinherit"])){{
+        slider-l[layout~="item-width:{value}"] > *:not(outsider-l[layout~="disinherit"]){{
             flex-basis:{value};
         }}
         "#,
@@ -40,7 +40,7 @@ fn slider_item_width_style(value: &str) -> String {
 fn slider_height_style(value: &str) -> String {
     formatdoc!(
         r#"
-        slider-l[layout~="height:{value}"] > *:not(outsider-l:not([layout~="disinherit"])){{
+        slider-l[layout~="height:{value}"] > *:not(outsider-l[layout~="disinherit"]){{
             block-size:{value};
         }}
         "#,
