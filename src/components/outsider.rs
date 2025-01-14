@@ -18,41 +18,41 @@ fn outsider_position_style(value: &str) -> String {
     )
 }
 
-fn outsider_top_style(value: &str) -> String {
+fn outsider_top_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         outsider-l[layout~="top:{value}"]{{
-            top:{value};
+            top:{harmonic};
         }}
         "#,
     )
 }
 
-fn outsider_bottom_style(value: &str) -> String {
+fn outsider_bottom_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         outsider-l[layout~="bottom:{value}"]{{
-            bottom:{value};
+            bottom:{harmonic};
         }}
         "#,
     )
 }
 
-fn outsider_left_style(value: &str) -> String {
+fn outsider_left_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         outsider-l[layout~="left:{value}"]{{
-            left:{value};
+            left:{harmonic};
         }}
         "#,
     )
 }
 
-fn outsider_right_style(value: &str) -> String {
+fn outsider_right_style(value: &str, harmonic: String) -> String {
     formatdoc!(
         r#"
         outsider-l[layout~="right:{value}"]{{
-            right:{value};
+            right:{harmonic};
         }}
         "#,
     )
@@ -68,19 +68,25 @@ pub fn outsider_css(
     set: &mut HashSet<String>,
 ) {
     set.insert(OUTSIDER_STYLE.to_string());
+
     if let Some(value) = position {
         set.insert(outsider_position_style(value));
     }
+
     if let Some(value) = top {
-        set.insert(outsider_top_style(&get_harmonic(value, harmonic_ratio)));
+        let harmonic_value = get_harmonic(value, harmonic_ratio);
+        set.insert(outsider_top_style(value, harmonic_value));
     }
     if let Some(value) = bottom {
-        set.insert(outsider_bottom_style(&get_harmonic(value, harmonic_ratio)));
+        let harmonic_value = get_harmonic(value, harmonic_ratio);
+        set.insert(outsider_bottom_style(value, harmonic_value));
     }
     if let Some(value) = left {
-        set.insert(outsider_left_style(&get_harmonic(value, harmonic_ratio)));
+        let harmonic_value = get_harmonic(value, harmonic_ratio);
+        set.insert(outsider_left_style(value, harmonic_value));
     }
     if let Some(value) = right {
-        set.insert(outsider_right_style(&get_harmonic(value, harmonic_ratio)));
+        let harmonic_value = get_harmonic(value, harmonic_ratio);
+        set.insert(outsider_right_style(value, harmonic_value));
     }
 }
