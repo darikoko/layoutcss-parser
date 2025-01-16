@@ -2,11 +2,17 @@ use indoc::formatdoc;
 
 use crate::config::LayoutStyleConfig;
 
+//container-type to allow extender to works
+//without x overflow when screen wide
 pub const RESET_CSS: &str = r#"
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    container-type: inline-size;    
 }
 
 img {

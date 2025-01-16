@@ -10,10 +10,10 @@ const EXTENDER_STYLE: &str = r#"
 
 const EXTENDER_SCREEN_STYLE: &str = r#"
   extender-l[layout~=screen]{
-    width: 100vw;
+    width: 100cqw;
     position: relative;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    margin-left: -50cqw;
+    margin-right: -50cqw;
     left: 50%;
     right: 50%;
   }
