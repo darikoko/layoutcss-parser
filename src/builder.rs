@@ -92,6 +92,12 @@ pub fn generate<'a>(
                                 _ => {}
                             };
                         }
+                        LayoutClass::Reverse => {
+                            match comp {
+                                Component::Switcher { reverse, .. } => *reverse = true,
+                                _ => {}
+                            };
+                        }
                         LayoutClass::Screen => {
                             match comp {
                                 Component::Extender { screen, .. } => *screen = true,

@@ -23,6 +23,7 @@ pub enum LayoutClass<'a> {
     MinCols(&'a str),
     MaxCols(&'a str),
     Recursive,
+    Reverse,
     Screen,
     TwinWidth,
     NoWrap,
@@ -189,6 +190,7 @@ impl<'a> TryFrom<&'a str> for LayoutClass<'a> {
             // all layout class without value
             (Some(class), None) => match class {
                 "recursive" => Ok(LayoutClass::Recursive),
+                "reverse" => Ok(LayoutClass::Reverse),
                 "screen" => Ok(LayoutClass::Screen),
                 "twin-width" => Ok(LayoutClass::TwinWidth),
                 "nowrap" => Ok(LayoutClass::NoWrap),
