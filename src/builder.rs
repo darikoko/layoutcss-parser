@@ -95,6 +95,7 @@ pub fn generate<'a>(
                         LayoutClass::Reverse => {
                             match comp {
                                 Component::Switcher { reverse, .. } => *reverse = true,
+                                Component::Sidebar { reverse, .. } => *reverse = true,
                                 _ => {}
                             };
                         }
