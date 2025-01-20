@@ -1,5 +1,5 @@
-use indoc::formatdoc;
 use crate::harmonic::get_harmonic;
+use indoc::formatdoc;
 use std::collections::HashSet;
 
 pub const AREA_STYLE: &str = r#"
@@ -48,7 +48,7 @@ fn area_grid_template_areas_style(value: &str, template: String) -> String {
     )
 }
 
-fn area_grid_area_unit_style(value: &str, unit: char, index:usize) -> String {
+fn area_grid_area_unit_style(value: &str, unit: char, index: usize) -> String {
     formatdoc!(
         r#"
         area-l[layout~="template:{value}"] > :nth-child({index}) {{
@@ -58,20 +58,20 @@ fn area_grid_area_unit_style(value: &str, unit: char, index:usize) -> String {
     )
 }
 
-fn area_rows_style(selector: &str, value: &str) -> String {
+fn area_rows_style(selector: &str, value: &str, template_selector:&str) -> String {
     formatdoc!(
         r#"
-        area-l{selector}{{
+        area-l[layout~="template:{template_selector}"]{selector}{{
             grid-template-rows: {value};
         }}
         "#,
     )
 }
 
-fn area_cols_style(selector: &str, value: &str) -> String {
+fn area_cols_style(selector: &str, value: &str, template_selector:&str  ) -> String {
     formatdoc!(
         r#"
-        area-l{selector}{{
+        area-l[layout~="template:{template_selector}"]{selector}{{
             grid-template-columns: {value};
         }}
         "#,
@@ -133,8 +133,14 @@ fn grid_template_rows_or_cols_rule(items: &Vec<&str>, pattern: &str, number: usi
 fn grid_template_rows_or_cols_selector(items: &Vec<&str>) -> String {
     let formatted_items: Vec<String> = items
         .iter()
-        .map(|item| formatdoc!(r#"[layout~="{}"]"#, item))
+        .map(|item| {
+            formatdoc!(
+                r#"[layout~="{}"]"#,
+                item
+            )
+        })
         .collect();
+        println!("{:?}AAAAAAAAAAAAAA", formatted_items);
     formatted_items.join("")
 }
 
@@ -164,20 +170,20 @@ pub fn area_css(
     if let Some(template) = template {
         let template_areas = grid_template_areas_value(template);
         set.insert(area_grid_template_areas_style(template, template_areas));
-        for (index,letter) in unique_letters(template).into_iter().enumerate() {
-            set.insert(area_grid_area_unit_style(template, letter,index+1));
+        for (index, letter) in unique_letters(template).into_iter().enumerate() {
+            set.insert(area_grid_area_unit_style(template, letter, index + 1));
         }
 
         let (rows_nb, cols_nb) = count_rows_and_cols(template);
         if !rows.is_empty() {
             let selector = grid_template_rows_or_cols_selector(&rows);
             let value = grid_template_rows_or_cols_rule(&rows, "row-", rows_nb);
-            set.insert(area_rows_style(&selector, &value));
+            set.insert(area_rows_style(&selector, &value, template));
         }
         if !cols.is_empty() {
-            let selector = grid_template_rows_or_cols_selector(&cols);
+            let selector = grid_template_rows_or_cols_selector(&cols );
             let value = grid_template_rows_or_cols_rule(&cols, "col-", cols_nb);
-            set.insert(area_cols_style(&selector, &value));
+            set.insert(area_cols_style(&selector, &value,template));
         }
     }
 
@@ -215,4 +221,3 @@ mod tests {
         println!("{:?}", css_set);
     }
 }
-
