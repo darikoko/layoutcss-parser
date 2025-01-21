@@ -89,7 +89,7 @@ pub fn get_css_from_string<'a>(
         None => &mut local_css_rules,
     };
 
-    css_rules.insert(reset::reset_css(&layout_style_config));
+    css_rules.insert(reset::RESET_CSS.to_string());
     if layout_style_config.dev {
         css_rules.insert(dev::DEV_CSS.to_string());
     }
