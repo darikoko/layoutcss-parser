@@ -18,6 +18,7 @@ body {
 img {
     display: block;
     width:100%;
+    object-fit: cover;
 }
 
 a {
