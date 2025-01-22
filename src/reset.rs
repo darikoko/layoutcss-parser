@@ -1,5 +1,8 @@
 //container-type to allow extender to works
 //without x overflow when screen wide
+//
+//font-size inherit on hn is mandatory
+//because the browser overide it 
 pub const RESET_CSS: &str = r#"
 * {
     margin: 0;
@@ -13,6 +16,10 @@ html {
 
 body {
     container-type: inline-size;    
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
 }
 
 img {
