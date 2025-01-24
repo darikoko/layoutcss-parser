@@ -28,10 +28,11 @@ img {
     object-fit: cover;
 }
 
-a {
-    all: unset;
+a, a:visited, a:hover, a:active, a:focus {
     display: inline-block;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 input {
