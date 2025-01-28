@@ -363,6 +363,7 @@ pub fn generate<'a>(
 mod tests {
     use super::*;
 
+
     #[test]
     fn media_queries_are_generated() {
         let mut set: HashSet<String> = HashSet::new();

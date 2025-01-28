@@ -98,7 +98,12 @@ impl<'a> Parser<'a> {
             self.layout_breakpoint_attribute_value_start,
             self.layout_breakpoint_attribute_value_end,
         ) {
+
+            // TODO add a test to check if an empty layout breakpoint reset the component correctly
+            // with a center with and-text in the normal layout for example
             (Some(start), Some(end)) if end > start => Some(&self.text[start..=end]),
+            // this line allows to correctly reset the component when the breakpoint is empty 
+            (Some(start), Some(end)) if end <= start => Some(""),
             _ => None,
         }
     }
