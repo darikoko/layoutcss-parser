@@ -1,6 +1,6 @@
 [package]
 name = "layoutcss-parser"
-version = "0.1.16"
+version = "0.1.17"
 edition = "2021"
 authors = ["Loïc Cavinato loic@cavinato.fr"]
 description = "Process a text to generate corresponding CSS according to the layoutcss framework."
