@@ -8,6 +8,7 @@ const RACK_STYLE: &str = r#"
   rack-l{
     display:flex;
     flex-direction:column;
+    overflow-block:visible;
   }
 
   rack-l > [layout~="centered"]{
