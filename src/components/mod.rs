@@ -164,7 +164,7 @@ impl<'a> FromStr for Component<'a> {
                 gap_dir: None,
                 gap: None,
             }),
-            "ledge-l" => Ok(Self::Ledge {
+            "ledge-l" | "row-l" => Ok(Self::Ledge {
                 nowrap: false,
                 twin_width: false,
                 direction: None,

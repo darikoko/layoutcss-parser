@@ -29,6 +29,9 @@ impl Ord for MediaQuery {
             (MediaQuery::SuperiorTo(_, _), MediaQuery::InferiorOrEqualTo(_)) => Ordering::Greater,
             (MediaQuery::InferiorOrEqualTo(_), MediaQuery::SuperiorTo(_, _)) => Ordering::Less,
 
+            //I think in the next two cases it's the same thinkg so we can say in every other case,
+            //compare
+
             // If both are `SuperiorTo`, compare by usize, so if the same return Equals
             (MediaQuery::SuperiorTo(a, _), MediaQuery::SuperiorTo(b, _)) => b.cmp(a),
 

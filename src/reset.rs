@@ -1,8 +1,10 @@
+use crate::config::LayoutStyleConfig;
+use indoc::formatdoc;
 //container-type to allow extender to works
 //without x overflow when screen wide
 //
 //font-size inherit on hn is mandatory
-//because the browser overide it 
+//because the browser overide it
 pub const RESET_CSS: &str = r#"
 * {
     margin: 0;
@@ -52,3 +54,20 @@ span, strong, label{
 }
 "#;
 
+pub fn get_font_size(config: &LayoutStyleConfig) -> String {
+    let base_value = &config.base_value;
+    let font_size = formatdoc!(
+        r#"
+        html{{
+            font-size: {base_value}
+        }}
+      "#
+    );
+
+    font_size
+}
+
+pub fn reset_css(config: &LayoutStyleConfig) -> String {
+    let font_size = get_font_size(config);
+    format!("{RESET_CSS}\n{font_size}")
+}
