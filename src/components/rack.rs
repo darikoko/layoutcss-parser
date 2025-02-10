@@ -2,13 +2,10 @@ use indoc::formatdoc;
 use crate::harmonic::get_harmonic;
 
 use std::collections::HashSet;
-//overflow-block:visible is needed when an extender is in the rack
-//otherwise the content is cut by the rack width
 const RACK_STYLE: &str = r#"
   rack-l{
     display:flex;
     flex-direction:column;
-    overflow-block:visible;
   }
 
   rack-l > [layout~="centered"]{
