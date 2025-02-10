@@ -1,8 +1,6 @@
 use indoc::formatdoc;
 use std::collections::HashSet;
 
-// width:100% is needed to make it works on 
-// the rack 
 const CENTER_STYLE: &str = r#"
 center-l{
     box-sizing: content-box;
@@ -10,7 +8,6 @@ center-l{
     margin-inline: auto;
     display: block;
     text-align: initial;
-    width:100%;
   }
 "#;
 
