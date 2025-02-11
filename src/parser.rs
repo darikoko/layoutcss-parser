@@ -159,7 +159,7 @@ impl<'a> Parser<'a> {
                         if let Some(attribute_name) = self.attribute_name() {
                             if attribute_name == "layout" {
                                 self.layout_attribute_value_start = Some(i + 1);
-                            } else if attribute_name.starts_with("layout@") {
+                            } else if attribute_name.starts_with("layout") {
                                 self.layout_breakpoint_attribute_value_start = Some(i + 1);
                             }
                         }
@@ -171,7 +171,7 @@ impl<'a> Parser<'a> {
                                 // when we are processing a media query layout attribute
                                 // we should call generate too but with a MediaQuery
                                 // as parameter
-                            } else if attribute_name.starts_with("layout@") {
+                            } else if attribute_name.starts_with("layout") {
                                 self.layout_breakpoint_attribute_value_end = Some(i - 1);
                                 if let (Some(breakpoint), Some(attribute_value)) = (
                                     extract_breakpoint(attribute_name),
@@ -240,14 +240,14 @@ mod tests {
     fn media_query_update_biggest_breakpoint_value_of_parser_when_many_breakpoints() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
         let mut parser =
-            Parser::new("<div  layout@600px=\"p:3\"  layout@900px=\"p:7\"  layout@700px=\"p:1\"");
+            Parser::new("<div  layout600px=\"p:3\"  layout900px=\"p:7\"  layout700px=\"p:1\"");
         parser.parse(&mut set);
         assert_eq!(parser.biggest_breakpoint_value, Some("p:7"));
     }
     #[test]
     fn media_query_update_biggest_breakpoint_value_of_parser() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<div  layout@600px=\"p:3\"");
+        let mut parser = Parser::new("<div  layout600px=\"p:3\"");
         parser.parse(&mut set);
         assert_eq!(parser.biggest_breakpoint_value, Some("p:3"));
     }
@@ -255,7 +255,7 @@ mod tests {
     #[test]
     fn media_query_update_biggest_breakpoint_of_parser() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<div  layout@600px=\"p:3\"");
+        let mut parser = Parser::new("<div  layout600px=\"p:3\"");
         parser.parse(&mut set);
         println!("{:?}", set);
         assert_eq!(parser.biggest_breakpoint, Some(600));
@@ -263,18 +263,18 @@ mod tests {
     #[test]
     fn media_query_only_become_layout_element() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<div  layout@600px=\"p:3\"");
+        let mut parser = Parser::new("<div  layout600px=\"p:3\"");
         parser.parse(&mut set);
         println!("{:?}", set);
     }
     #[test]
     fn layout_bp_attribute_value_start_and_end_are_correct() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<ledge-l layout=\"gap:1\" layout@600px=\"gap:2 p:3\"");
+        let mut parser = Parser::new("<ledge-l layout=\"gap:1\" layout600px=\"gap:2 p:3\"");
         parser.parse(&mut set);
-        assert_eq!(parser.attribute_name(), Some("layout@600px"));
-        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(38));
-        assert_eq!(parser.layout_breakpoint_attribute_value_end, Some(46));
+        assert_eq!(parser.attribute_name(), Some("layout600px"));
+        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(37));
+        assert_eq!(parser.layout_breakpoint_attribute_value_end, Some(45));
     }
 
     #[test]
@@ -288,29 +288,24 @@ mod tests {
     #[test]
     fn test_extract_breakpoint_attribute_is_added_to_breakpoints() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<ledge-l layout@600px=\"p:2\"");
+        let mut parser = Parser::new("<ledge-l layout600px=\"p:2\"");
         parser.parse(&mut set);
-        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(23));
+        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(22));
     }
 
     #[test]
     fn test_extract_breakpoint_with_nothing_after_at() {
-        let mq_attribute_value = "layout@";
+        let mq_attribute_value = "layout";
         let result = extract_breakpoint(mq_attribute_value);
 
         assert_eq!(result, None);
     }
 
-    #[test]
-    fn test_extract_breakpoint_without_at() {
-        let mq_attribute_value = "layout600px";
-        let result = extract_breakpoint(mq_attribute_value);
-        assert_eq!(result, None);
-    }
+   
 
     #[test]
     fn test_extract_breakpoint_with_correct_formating() {
-        let mq_attribute_value = "layout@600px";
+        let mq_attribute_value = "layout600px";
         let result = extract_breakpoint(mq_attribute_value);
         assert_eq!(result, Some(600));
     }

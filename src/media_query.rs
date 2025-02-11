@@ -6,10 +6,9 @@ pub enum MediaQuery {
     InferiorOrEqualTo(usize),
 }
 
-
-impl MediaQuery{
-    pub fn get_breakpoint(&self) -> &usize{
-        match self{
+impl MediaQuery {
+    pub fn get_breakpoint(&self) -> &usize {
+        match self {
             Self::SuperiorTo(breakpoint, _) => breakpoint,
             Self::InferiorOrEqualTo(breakpoint) => breakpoint,
         }
@@ -42,16 +41,12 @@ impl Ord for MediaQuery {
 }
 
 pub fn extract_breakpoint(input: &str) -> Option<usize> {
-    if let Some(at_index) = input.find('@') {
-        let after_at = &input[at_index + 1..]; // Slice after the '@'
-        if let Some(number_end) = after_at.find(|c: char| !c.is_digit(10)) {
-            after_at[..number_end].parse::<usize>().ok()
-        } else {
-            after_at.parse::<usize>().ok()
-        }
-    } else {
-        None
+    // Wrong pattern, nothing to extract
+    if input.len() <= "layoutpx".len() {
+        return None;
     }
+    let number_part = &input[6..input.len() - 2]; // Slice out the number part
+    return number_part.parse::<usize>().ok();
 }
 
 #[cfg(test)]
@@ -65,14 +60,14 @@ mod tests {
     }
 
     #[test]
-    fn extract_breakpoint_without_at() {
+    fn extract_breakpoint_without_at_cool() {
         let bp = extract_breakpoint("layout600px");
-        assert_eq!(bp, None)
+        assert_eq!(bp, Some(600))
     }
 
     #[test]
     fn extract_breakpoint_from_correct_mq() {
         let bp = extract_breakpoint("layout@600px");
-        assert_eq!(bp, Some(600))
+        assert_eq!(bp, None)
     }
 }
