@@ -38,11 +38,11 @@ pub fn generate_final_css(
                 .iter()
                 .map(|s| match &key {
                     MediaQuery::InferiorOrEqualTo(breakpoint) => {
-                        s.replace("[layout", format!("[layout\\@{breakpoint}px").as_str())
+                        s.replace("[layout", format!("[layout{breakpoint}px").as_str())
                     }
                     MediaQuery::SuperiorTo(breakpoint, attribute_value) => s.replace(
                         "-l[layout",
-                        format!("-l[layout\\@{breakpoint}px=\"{attribute_value}\"][layout")
+                        format!("-l[layout{breakpoint}px=\"{attribute_value}\"][layout")
                             .as_str(),
                     ),
                 })
