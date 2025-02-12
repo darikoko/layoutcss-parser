@@ -5,7 +5,7 @@ use center::center_css;
 use extender::extender_css;
 use grid::grid_css;
 use icon::icon_css;
-use ledge::ledge_css;
+use row::row_css;
 use outsider::outsider_css;
 use r#box::box_css;
 use rack::rack_css;
@@ -20,7 +20,7 @@ pub mod center;
 pub mod extender;
 pub mod grid;
 pub mod icon;
-pub mod ledge;
+pub mod row;
 pub mod outsider;
 pub mod rack;
 pub mod sidebar;
@@ -68,7 +68,7 @@ pub enum Component<'a> {
         gap_dir: Option<&'a str>,
         gap: Option<&'a str>,
     },
-    Ledge {
+    Row {
         nowrap: bool,
         twin_width: bool,
         direction: Option<&'a str>,
@@ -164,7 +164,7 @@ impl<'a> FromStr for Component<'a> {
                 gap_dir: None,
                 gap: None,
             }),
-            "ledge-l" | "row-l" => Ok(Self::Ledge {
+            "row-l" => Ok(Self::Row {
                 nowrap: false,
                 twin_width: false,
                 direction: None,
@@ -271,7 +271,7 @@ impl<'a> Component<'a> {
                 gap_dir,
                 gap,
             } => icon_css(scale, align, gap_dir, gap, harmonic_ratio, set),
-            Component::Ledge {
+            Component::Row {
                 nowrap,
                 twin_width,
                 direction,
@@ -280,7 +280,7 @@ impl<'a> Component<'a> {
                 gap,
                 gap_x,
                 gap_y,
-            } => ledge_css(
+            } => row_css(
                 nowrap,
                 twin_width,
                 direction,

@@ -270,17 +270,17 @@ mod tests {
     #[test]
     fn layout_bp_attribute_value_start_and_end_are_correct() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<ledge-l layout=\"gap:1\" layout600px=\"gap:2 p:3\"");
+        let mut parser = Parser::new("<row-l layout=\"gap:1\" layout600px=\"gap:2 p:3\"");
         parser.parse(&mut set);
         assert_eq!(parser.attribute_name(), Some("layout600px"));
-        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(37));
-        assert_eq!(parser.layout_breakpoint_attribute_value_end, Some(45));
+        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(35));
+        assert_eq!(parser.layout_breakpoint_attribute_value_end, Some(43));
     }
 
     #[test]
     fn component_without_layout_attribute_generate_css() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<ledge-l>");
+        let mut parser = Parser::new("<row-l>");
         parser.parse(&mut set);
         assert!(set.len() == 1);
     }
@@ -288,9 +288,9 @@ mod tests {
     #[test]
     fn test_extract_breakpoint_attribute_is_added_to_breakpoints() {
         let mut set: HashSet<LayoutElement> = HashSet::new();
-        let mut parser = Parser::new("<ledge-l layout600px=\"p:2\"");
+        let mut parser = Parser::new("<row-l layout600px=\"p:2\"");
         parser.parse(&mut set);
-        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(22));
+        assert_eq!(parser.layout_breakpoint_attribute_value_start, Some(20));
     }
 
     #[test]

@@ -107,13 +107,13 @@ pub fn generate<'a>(
                         }
                         LayoutClass::TwinWidth => {
                             match comp {
-                                Component::Ledge { twin_width, .. } => *twin_width = true,
+                                Component::Row { twin_width, .. } => *twin_width = true,
                                 _ => {}
                             };
                         }
                         LayoutClass::NoWrap => {
                             match comp {
-                                Component::Ledge { nowrap, .. } => *nowrap = true,
+                                Component::Row { nowrap, .. } => *nowrap = true,
                                 _ => {}
                             };
                         }
@@ -152,7 +152,7 @@ pub fn generate<'a>(
                                 Component::Area { gap, .. } => *gap = Some(v),
                                 Component::Grid { gap, .. } => *gap = Some(v),
                                 Component::Icon { gap, .. } => *gap = Some(v),
-                                Component::Ledge { gap, .. } => *gap = Some(v),
+                                Component::Row { gap, .. } => *gap = Some(v),
                                 Component::Rack { gap, .. } => *gap = Some(v),
                                 Component::Sidebar { gap, .. } => *gap = Some(v),
                                 Component::Slider { gap, .. } => *gap = Some(v),
@@ -165,7 +165,7 @@ pub fn generate<'a>(
                             match comp {
                                 Component::Area { gap_x, .. } => *gap_x = Some(v),
                                 Component::Grid { gap_x, .. } => *gap_x = Some(v),
-                                Component::Ledge { gap_x, .. } => *gap_x = Some(v),
+                                Component::Row { gap_x, .. } => *gap_x = Some(v),
                                 Component::Sidebar { gap_x, .. } => *gap_x = Some(v),
                                 Component::Switcher { gap_x, .. } => *gap_x = Some(v),
                                 _ => {}
@@ -175,7 +175,7 @@ pub fn generate<'a>(
                             match comp {
                                 Component::Area { gap_y, .. } => *gap_y = Some(v),
                                 Component::Grid { gap_y, .. } => *gap_y = Some(v),
-                                Component::Ledge { gap_y, .. } => *gap_y = Some(v),
+                                Component::Row { gap_y, .. } => *gap_y = Some(v),
                                 Component::Sidebar { gap_y, .. } => *gap_y = Some(v),
                                 Component::Switcher { gap_y, .. } => *gap_y = Some(v),
                                 _ => {}
@@ -196,13 +196,13 @@ pub fn generate<'a>(
                         LayoutClass::Align(v) => {
                             match comp {
                                 Component::Icon { align, .. } => *align = Some(v),
-                                Component::Ledge { align, .. } => *align = Some(v),
+                                Component::Row { align, .. } => *align = Some(v),
                                 _ => {}
                             };
                         }
                         LayoutClass::Justify(v) => {
                             match comp {
-                                Component::Ledge { justify, .. } => *justify = Some(v),
+                                Component::Row { justify, .. } => *justify = Some(v),
                                 _ => {}
                             };
                         }
