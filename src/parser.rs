@@ -135,6 +135,7 @@ impl<'a> Parser<'a> {
             (ReadingAttributeName, '=') => Some(WaitingAttributeValue),
             //TODO curly braces counter
             (WaitingAttributeValue, '"') => Some(ReadingAttributeValue),
+            (WaitingAttributeValue, c) if c !='"' => Some(AfterTagName),
             (ReadingAttributeValue, '"') => Some(AfterTagName),
             (AfterTagName | ReadingTagName | ReadingAttributeName, '>') => Some(Resting),
             _ => None,
@@ -234,6 +235,16 @@ mod tests {
     use crate::builder::LayoutElement;
 
     use super::*;
+
+    // curly braces tests
+    #[test]
+    fn curly_braces_as_attribute_delimiters_working() {
+        let mut set: HashSet<LayoutElement> = HashSet::new();
+        let mut parser =
+            Parser::new("<div class={hello} layout=\"p:3\"");
+        parser.parse(&mut set);
+        assert_eq!(parser.layout_attribute_value_start, Some(27));
+    }
 
     // media query test
     #[test]
