@@ -140,7 +140,6 @@ fn grid_template_rows_or_cols_selector(items: &Vec<&str>) -> String {
             )
         })
         .collect();
-        println!("{:?}AAAAAAAAAAAAAA", formatted_items);
     formatted_items.join("")
 }
 
