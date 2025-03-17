@@ -37,7 +37,7 @@ a, a:visited, a:hover, a:active, a:focus {
     color: inherit;
 }
 
-input {
+input,select {
     display: block;
     width:100%;
 }
